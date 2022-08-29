@@ -1,0 +1,33 @@
+.appmain{
+    display: inline-block;
+    width: 200px;
+    padding: 10px;
+    background-color: dimgray;
+    border-radius: 5px;
+    color: #cccccc;
+}
+
+.caption{
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+
+.showpassword{
+    width: 10%;
+}
+
+.password, .username{
+    width: 80%;
+    margin-left: 5%;
+}
+
+.appmain label {
+    margin-top: 10px;
+}
+
+.appmain button {
+    margin-top: 10px;
+}
+
+
