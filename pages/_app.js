@@ -1,24 +1,10 @@
 import '../styles/globals.css'
-import { useState } from 'react';
-import GlobalContext from '../utils/global-context';
+import { UserProvider } from '@auth0/nextjs-auth0';
 
-function MyApp({ Component, pageProps }) {
-  const [state, setState] = useState({
-    count: 0,
-    username: 'fake',
-    update
-  })
-  
-
-  function update(data) {
-    setState(Object.assign({}, state, data));
-  }
-
+export default function App({ Component, pageProps }) {
   return (
-    <GlobalContext.Provider value={state}>
+    <UserProvider>
       <Component {...pageProps} />
-    </GlobalContext.Provider>
-  )
+    </UserProvider>
+  );
 }
-
-export default MyApp

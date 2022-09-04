@@ -18,7 +18,7 @@ export default function Layout({ children, home }) {
       </Head>
       <header className={styles.header}>
         {home ? (
-          <>            
+          <>
             <h1>Welcome to Shopping list app</h1>
           </>
         ) : (
@@ -36,8 +36,10 @@ export default function Layout({ children, home }) {
         </div>
       )}
       <footer className={styles.footer}>
-        <div className={styles.footerRow}> Adatkezelési tájékoztató </div>
-        <div className={styles.footerRow}> <div>Copyright © 2022 <a href='https://utenasoft.hu' target="_blank">utenasoft.hu</a></div></div>
+        <div className={styles.footerRow}>
+          <Link href='privacy-policy'><a>Privacy policy</a></Link>
+        </div>
+        <div className={styles.footerRow}> <div>Copyright © 2022 <a href='https://utenasoft.hu' rel="noreferrer" target="_blank">utenasoft.hu</a></div></div>
       </footer>
     </div>
   );

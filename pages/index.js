@@ -1,31 +1,16 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import Layout, { siteTitle } from '../components/layout/layout';
-import Login from '../components/login/login';
+import Userpanel from '../components/userpanel/userpanel';
 import { useContext, useEffect } from 'react'
-import GlobalContext from '../utils/global-context'
+import styles from '../styles/Home.module.css'
 
 export default function Home() {
-  const global = useContext(GlobalContext)
-
-  function loginHandle(userName, password) {
-    global.update({
-      count: global.count + 1
-    });
-
-  }
-
-  useEffect(() => {
-    global.update({      
-      username: 'useEffect'
-    });
-  }, [global.count]);
-
+  
   return (
     <Layout home>
       <section>
-        <Login loginHandle={loginHandle} />
-        <label>Count: {global.count}</label>
-        <label>User: {global.username}</label>
+        <Userpanel/>                
       </section>
     </Layout>
   );
