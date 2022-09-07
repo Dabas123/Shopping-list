@@ -9,7 +9,7 @@ export default function PP() {
 
     return (
         <Layout>
-            <section>
+            <section style={{padding: 10}}>
                 <h1>Privacy Policy</h1>
                 <p>Updated: 04 September, 2022</p>
                 <h2>WHAT INFORMATION DO WE COLLECT?</h2>
@@ -25,17 +25,13 @@ export default function PP() {
                 <p>We use to next third parties to help deliver our products and services to you:</p>
                 <ul>
                     <li>
-                        Authentication service providers: <a href='https://auth0.com/' target='_blank'>Auth0® Inc.</a>
-                        <p>Check out her <a href='https://auth0.com/privacy' target='_blank'>Privacy policy</a> for more info.</p>
+                        Authentication service providers: <a href='https://auth0.com/' rel="noreferrer" target='_blank'>Auth0® Inc.</a>
+                        <p>Check out her <a href='https://auth0.com/privacy' rel="noreferrer" target='_blank'>Privacy policy</a> for more info.</p>
                     </li>
                 </ul>
                 <h3>Cookies and Similar Technologies</h3>
                 <p>When you visit our sites or when you use our apps, we may collect personal data from you automatically using cookies or similar technologies. A cookie is a small file that can be placed on your device that allows us to recognize and remember you.
-                    We may place cookies on your device (with your consent, where applicable), as well as partner with third parties, including authorisation partners (auth0.com), who may use cookies or other similar technologies.</p>
-                <p>
-                    <br/>
-                    <br/>
-                </p>
+                    We may place cookies on your device (with your consent, where applicable), as well as partner with third parties, including authorisation partners (auth0.com), who may use cookies or other similar technologies.</p>                
             </section>
         </Layout>
     );

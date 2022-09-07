@@ -27,14 +27,15 @@ export default function Layout({ children, home }) {
           </>
         )}
       </header>
-      <main>{children}</main>
-      {!home && (
-        <div className={styles.backToHome}>
-          <Link href="/">
-            <a>← Back to home</a>
-          </Link>
-        </div>
-      )}
+      <main className={styles.main}>{children}
+        {!home && (
+          <div className={styles.backToHome}>
+            <Link href="/">
+              <a>← Back to home</a>
+            </Link>
+          </div>
+        )}
+      </main>
       <footer className={styles.footer}>
         <div className={styles.footerRow}>
           <Link href='privacy-policy'><a>Privacy policy</a></Link>
