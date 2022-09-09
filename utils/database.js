@@ -50,6 +50,17 @@ class Database {
             });
         });
     };
+
+    addNewList = (userId, title) =>{ 
+        return new Promise((resolve, reject)=>{
+            this.connection.query('INSERT INTO shoppinglist (title, owner) VALUES (?, ?)', [title, userId] ,(error, results)=>{
+                if(error){
+                    return reject(error);
+                }
+                return resolve({lists: results});
+            });
+        });
+    };
 }
 
 export { Database };

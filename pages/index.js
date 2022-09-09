@@ -1,6 +1,5 @@
 import Layout, { siteTitle } from '../components/layout/layout';
 import Userpanel from '../components/userpanel/userpanel';
-import ShoppingLists from '../components/shoppinglists/shoppinglists';
 import styles from '../styles/Home.module.css'
 import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
