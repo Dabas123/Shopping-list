@@ -2,7 +2,6 @@ import Layout, { siteTitle } from '../components/layout/layout';
 import styles from '../styles/Home.module.css'
 import { useUser, getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router'
-import Link from 'next/link';
 import { useState } from 'react';
 import ShoppingList from '../components/shoppinglist/shoppinglist';
 
@@ -13,7 +12,7 @@ export default function ShoppingListsSite({ data }) {
   const [titleText, setTitleText] = useState('')
 
   const handleAdd = (event) => {
-    setAddActive(true)
+    setAddActive(addActive ? false : true)
   }
 
   const refreshData = () => {
@@ -31,9 +30,22 @@ export default function ShoppingListsSite({ data }) {
       });
     const res = await fetch(req);
     const data = await res.json();
-    console.log(data)  
     setTitleText('')
     setAddActive(false)
+    refreshData()
+  }
+
+  const handleDeleteEvent = async (id) => {
+    const req = new Request('http://localhost:3000/api/deletelist',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify({ id: id })
+      });
+    const res = await fetch(req);
+    const data = await res.json();
     refreshData()
   }
 
@@ -55,7 +67,7 @@ export default function ShoppingListsSite({ data }) {
         }
         {data.lists.map((item, index) => (
           <div>
-            <ShoppingList title={item.title} id={item.ID}/>            
+            <ShoppingList title={item.title} id={item.id} user={user} deleteEvent={handleDeleteEvent} />
           </div>
         ))}
       </section>

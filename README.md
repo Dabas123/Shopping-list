@@ -27,15 +27,16 @@ I use Mysql database for backend functions.
 
 ### Create shoppinglist table
 create table shoppinglist (
-    ID bigint primary key auto_increment,
+    id bigint primary key auto_increment,
     title varchar(255)
     );
 
 ### Create shoppingitem table
 create table shoppingitem (
-    ID bigint primary key auto_increment,
+    id bigint primary key auto_increment,
     list_id bigint,
     foreign key (list_id) references shoppinglist(ID),
-    title varchar(255)
+    title varchar(255),
+    status varchar(20) default 'Incomplete'
     );
 
