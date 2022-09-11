@@ -3,27 +3,12 @@ import ShoppingListItem from './shoppinglistitem'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 
-export default function ShoppingList({ title, id, user, deleteEvent }) {
+export default function ShoppingList({ title, id, deleteEvent }) {
     const router = useRouter()
     const [folded, setFolded] = useState(false)
     const [addActive, setAddActive] = useState(false)
     const [itemText, setItemText] = useState('')
     const [data, setData] = useState({ items: [] })
-
-    const refreshData = () => {
-        (async () => {
-            const req = new Request('http://localhost:3000/api/getitems',
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json;charset=utf-8'
-                    },
-                    body: JSON.stringify({ list_id: id })
-                });
-            const res = await fetch(req);
-            setData(await res.json());
-        })();
-    }
 
     const handleFolded = () => {
         setFolded(folded ? false : true)
@@ -39,14 +24,36 @@ export default function ShoppingList({ title, id, user, deleteEvent }) {
         setAddActive(addActive ? false : true)
     }
 
+    const handleItemText = (event) => {
+        setItemText(event.target.value)
+    }
+
+    function handleDeleteEvent() {
+        deleteEvent(id)
+    }
+
+    const refreshData = () => {
+        (async () => {
+            const req = new Request('http://localhost:3000/api/item?list_id=' + id,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json;charset=utf-8'
+                    }
+                });
+            const res = await fetch(req);
+            setData(await res.json());
+        })();
+    }
+ 
     const handleSave = async (event) => {
-        const req = new Request('http://localhost:3000/api/additem',
+        const req = new Request('http://localhost:3000/api/item',
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
-                body: JSON.stringify({ list_id: id, itemtext: itemText })
+                body: JSON.stringify({ list_id: id, itemtext: itemText })                
             });
         const res = await fetch(req);
         const data = await res.json();
@@ -55,14 +62,10 @@ export default function ShoppingList({ title, id, user, deleteEvent }) {
         refreshData()
     }
 
-    const handleItemText = (event) => {
-        setItemText(event.target.value)
-    }
-
     const handleDeleteItem = async (event, id) => {
-        const req = new Request('http://localhost:3000/api/deleteitem',
+        const req = new Request('http://localhost:3000/api/item',
             {
-                method: 'POST',
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
@@ -74,10 +77,9 @@ export default function ShoppingList({ title, id, user, deleteEvent }) {
     }
 
     const handleItemStatus = async (id, status) => {
-        console.log(id)
-        const req = new Request('http://localhost:3000/api/changeitemstatus',
+        const req = new Request('http://localhost:3000/api/item',
             {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json;charset=utf-8'
                 },
@@ -86,10 +88,6 @@ export default function ShoppingList({ title, id, user, deleteEvent }) {
         const res = await fetch(req);
         const data = await res.json();
         refreshData()
-    }
-
-    function handleDeleteEvent() {
-        deleteEvent(id)
     }
 
     return (

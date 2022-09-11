@@ -19,8 +19,12 @@ export default function ShoppingListsSite({ data }) {
     router.replace(router.asPath);
   }
 
+  function titleTextHandle(event) {
+    setTitleText(event.target.value)
+  }
+
   const handleSave = async (event) => {
-    const req = new Request('http://localhost:3000/api/addlist',
+    const req = new Request('http://localhost:3000/api/list',
       {
         method: 'POST',
         headers: {
@@ -36,21 +40,17 @@ export default function ShoppingListsSite({ data }) {
   }
 
   const handleDeleteEvent = async (id) => {
-    const req = new Request('http://localhost:3000/api/deletelist',
+    const req = new Request('http://localhost:3000/api/list',
       {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify({ id: id })
+        body: JSON.stringify({ userid: user.sub, id: id })
       });
     const res = await fetch(req);
     const data = await res.json();
     refreshData()
-  }
-
-  function titleTextHandle(event) {
-    setTitleText(event.target.value)
   }
 
   return (
@@ -67,7 +67,7 @@ export default function ShoppingListsSite({ data }) {
         }
         {data.lists.map((item, index) => (
           <div>
-            <ShoppingList title={item.title} id={item.id} user={user} deleteEvent={handleDeleteEvent} />
+            <ShoppingList title={item.title} id={item.id} deleteEvent={handleDeleteEvent} />
           </div>
         ))}
       </section>
@@ -79,13 +79,13 @@ export const getServerSideProps = withPageAuthRequired({
   async getServerSideProps(ctx) {
     const session = getSession(ctx.req, ctx.res);
 
-    const req = new Request('http://localhost:3000/api/list',
+    const req = new Request('http://localhost:3000/api/list?userid=' + session.user.sub
+    + '&apikey=' + process.env.API_KEY,
       {
-        method: 'POST',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify({ userid: session.user.sub, apikey: process.env.API_KEY })
+        }
       });
     const res = await fetch(req);
     const data = await res.json();

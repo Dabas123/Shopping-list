@@ -2,7 +2,6 @@
 export default function ShoppingListItem({ id, text, status, handleDelete, handleStatus }) {
 
     function changeStatus(){
-        console.log(id)
         if (status === 'Incomplete') {
             handleStatus(id, 'Complete')
         }

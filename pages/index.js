@@ -12,7 +12,7 @@ export default function Home() {
       <section>
         <Userpanel />
         {user && !error && !isLoading &&
-          <Link href="/shoppinglists">Own shopping lists</Link>
+          <Link href="/shoppinglistpage">Own shopping lists</Link>
         }
       </section>
     </Layout>
