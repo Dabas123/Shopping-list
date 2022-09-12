@@ -1,5 +1,5 @@
 import Layout, { siteTitle } from '../components/layout/layout';
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Shoppinglistpage.module.css'
 import { useUser, getSession, withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
@@ -19,8 +19,16 @@ export default function ShoppingListsSite({ data }) {
     router.replace(router.asPath);
   }
 
-  function titleTextHandle(event) {
-    setTitleText(event.target.value)
+  const titleTextHandle = (event) => {
+    setTitleText(event.target.value)    
+  }
+
+  const titleTextKeyUp = (event) => {
+    console.log(event.key)
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      handleSave()
+    }
   }
 
   const handleSave = async (event) => {
@@ -56,17 +64,17 @@ export default function ShoppingListsSite({ data }) {
   return (
     <Layout>
       <section>
-        {user && <p>Hello {user.email}!</p>}
-        <button onClick={handleAdd}>Add new</button>
+        <h1 className={styles.header}>Shopping list app</h1>
+        <button className={styles.addListBtn} onClick={handleAdd}>Add new shopping list</button>
         {addActive &&
-          <div>
+          <div className={styles.addpanel}>
             <input type="text" name="title" placeholder='Title' value={titleText}
-              onChange={titleTextHandle}></input>
-            <button onClick={handleSave}>Save</button>
+              onChange={titleTextHandle} onKeyUp={titleTextKeyUp}></input>
+            <button onClick={handleSave}>Add</button>
           </div>
         }
         {data.lists.map((item, index) => (
-          <div>
+          <div className={styles.sl_container}>
             <ShoppingList title={item.title} id={item.id} deleteEvent={handleDeleteEvent} />
           </div>
         ))}

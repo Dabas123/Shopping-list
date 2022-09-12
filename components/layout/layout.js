@@ -17,15 +17,10 @@ export default function Layout({ children, home }) {
         <meta name="og:title" content={siteTitle} />
       </Head>
       <header className={styles.header}>
-        {home ? (
+        {home &&
           <>
             <h1>Welcome to Shopping list app</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">Home</Link>
-          </>
-        )}
+          </>}
       </header>
       <main className={styles.main}>{children}
         {!home && (
